@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <iomanip>
 
 using namespace std;
@@ -62,7 +63,7 @@ int main()
 		}
 
 	}
-	cout << "Enjoy the show!";
+	cout << "Enjoy the show!" << endl;
 
 }
 void displayMenu(){
@@ -122,7 +123,9 @@ void promptRowPrices(){
 
 void promptRowSeat(){
 	// Get Row and Seat # from user
-	cout << "Here is what is available: " << endl << displayChart() << endl;
+	cout << "Here is what is available: " << endl;
+	displayChart();
+	cout << endl;
 	cout << "Enter the Row # of the seat you would like to purchase (1-15): ";
 	cin >> row;
 	cout << endl << "Enter the Seat # in that row you would like to purchase (1-30): ";
@@ -131,7 +134,9 @@ void promptRowSeat(){
 	// If the seat is available, change the seat's status in the seating chart, add to totalSales, and increment seatsSold
 	if(seatingChart[row-1][seat-1] == '#'){
 		changeSeatStatus();
-		cout << endl << "Sold! That seat cost $" << getRowPrice() << "." << endl;
+		cout << "Sold! That seat cost : $";
+		getRowPrice();
+		cout << "." << endl;
 		totalSales += sales[row];
 		seatsSold++;
 	}
