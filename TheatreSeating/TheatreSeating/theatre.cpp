@@ -12,7 +12,7 @@ int userChoice = 0; // ****UPDATE**** forgot to make the userChoice variable dur
 int seatsPerRow = 0; // (3rd commit addition)
 
 
-int seatingChart[15][30];
+char seatingChart[15][30];
 int sales[15];
 
 void displayMenu();   // Kevin
@@ -27,7 +27,7 @@ void changeSeatStatus();	// Matt
 
 int main()
 {
-	// Fill the array ( fillArray() )
+	// Fill the array 
 	fillArray(); // fillAray needs to be defined below
 
 	// Prompt for row prices
@@ -36,7 +36,7 @@ int main()
 	// Display Menu outside of while and set userChoice
 	displayMenu();
 
-	// While(userChoice !=3)
+	// While(userChoice !=4)
 	while(userChoice != 4){
 
 		switch(userChoice){
@@ -53,6 +53,7 @@ int main()
 				break;
 			case 3:
 				displaySales();
+				displayChart();
 				displayMenu();
 				break;
 			default:
@@ -93,6 +94,10 @@ void displayAvailable(){
 
 	// Displays total number of seats left in auditorium
 	cout << "Total # of seats left: " << totalAvailable << endl;
+
+	// Reset variables so they will be correct if the client chooses option 2 (Ticket Availabilty) again
+	totalAvailable = 0;
+	seatsPerRow = 0;
 	
 }
 void displaySales(){
@@ -106,6 +111,7 @@ void displayChart(){
 
 void fillArray(){
 // define fillArray here
+	// *4th commit* changed the seatingChart array from a int array to a char array
 }
 
 void promptRowPrices(){
@@ -125,15 +131,15 @@ void promptRowSeat(){
 	// If the seat is available, change the seat's status in the seating chart, add to totalSales, and increment seatsSold
 	if(seatingChart[row-1][seat-1] == '#'){
 		changeSeatStatus();
-		cout << "Sold! That seat cost $" << getRowPrice() << "." << endl;
+		cout << endl << "Sold! That seat cost $" << getRowPrice() << "." << endl;
 		totalSales += sales[row];
 		seatsSold++;
 	}
 	else if(seatingChart[row-1][seat-1] == '*'){
-		cout << "That seat is already taken. Try again!" << endl;
+		cout << endl << "That seat is already taken. Try again!" << endl;
 	}
 	else{
-		cout << "Incorrect Row # or Seat #" << endl;
+		cout << endl << "Incorrect Row # or Seat #" << endl;
 	}
 
 }
