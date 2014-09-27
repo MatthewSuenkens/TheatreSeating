@@ -13,8 +13,8 @@ int userChoice = 0; // ****UPDATE**** forgot to make the userChoice variable dur
 int seatsPerRow = 0; // (3rd commit addition)
 
 
-char seatingChart[15][30];
-int sales[15];
+char seatingChart[14][29];
+int sales[14];
 
 void displayMenu();   // Kevin
 void promptRowSeat();	// Kevin
@@ -22,14 +22,15 @@ void displayAvailable(); // Kevin (3rd commit addition)
 void displaySales();	// Rodger
 void promptRowPrices();	// Rodger
 void getRowPrice();		// Rodger
-void displayChart();	// Matt
-void fillArray();		// Matt	
-void changeSeatStatus();	// Matt
+void displayChart();	// Matt -- created 9/27/14
+void fillArray();		// Matt	-- created 9/27/14
+void changeSeatStatus();	// Matt -- created 9/27/14
 
 int main()
 {
 	// Fill the array 
 	fillArray(); // fillAray needs to be defined below
+
 
 	// Prompt for row prices
 	promptRowPrices();  // promptRowPrices needs to be defined below
@@ -44,6 +45,7 @@ int main()
 			
 			case 1: 
 				promptRowSeat();
+				changeSeatStatus();
 				displayChart();
 				displayMenu();
 				break;
@@ -106,13 +108,37 @@ void displaySales(){
 	// assume totalSales is already correct (calculated in promptRowSeat() )
 }	
 
-void displayChart(){
+void displayChart(){ //Matt
 // define displayChart here
+	cout << "\t";
+	for (int i = 0; i < 3; i++){
+		for (int j = 1; j < 11; j++){
+			if (j != 10){
+				cout << j;
+			}
+			else {
+				cout << 0;
+			}
+		}
+	}
+	cout << endl;
+	for (int i = 0; i < 15; i++){
+		cout << "Row " << i + 1 << "\t";
+		for (int j = 0; j < 30; j++){
+			cout << seatingChart[i][j];
+		}
+		cout << endl;
+	}
 }
 
-void fillArray(){
+void fillArray(){ //Matt
 // define fillArray here
 	// *4th commit* changed the seatingChart array from a int array to a char array
+	for (int i = 0; i < 15; ++i){
+		for (int j = 0; j < 30; ++j){
+			seatingChart[i][j] = '#';
+		}
+	}
 }
 
 void promptRowPrices(){
@@ -156,8 +182,9 @@ void getRowPrice(){
 	// reminder, row 1 == sales[0], row 15 == sales[14];
 }
 
-void changeSeatStatus(){
+void changeSeatStatus(){ //Matt
 // define changeSeatStatus here
 	// assume the 'row' and 'seat' variables are already set to the indexes of the row and seat you are trying to change
 	// reminder, row 1 seat 30 == seatingChart[0][29]
+	seatingChart[row - 1][seat - 1] = '*';
 }
