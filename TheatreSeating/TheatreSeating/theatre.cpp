@@ -106,6 +106,7 @@ void displayAvailable(){
 void displaySales(){
 // define displaySales here
 	// assume totalSales is already correct (calculated in promptRowSeat() )
+	cout << "The total sales are: " << totalSales << endl;
 }	
 
 void displayChart(){ //Matt
@@ -145,6 +146,12 @@ void promptRowPrices(){
 // define promptRowPrices here
 // Prompts user to enter the price of purchasing a seat row by row and initializes each price with the correspoding row in "sales" array
 // reminder, row 1 == sales[0], row 15 == sales[14];
+	int rowPrices;
+
+	for (int i=0; i < 15; i++){
+		cout << "Enter The Amount For Row " << (i +1) << endl;
+		cin >> rowPrices;
+		sales[i] = rowPrices;
 }
 
 void promptRowSeat(){
@@ -180,6 +187,10 @@ void getRowPrice(){
 	// assume the 'row' variable is already set to the index of the row you are searching for
 	// the function should ultimately output the price of the row ( ex. cout << sales[row-1] << endl )
 	// reminder, row 1 == sales[0], row 15 == sales[14];
+		int price = sales[row - 1];
+
+	cout << "The price for that row is: " << price << endl;
+
 }
 
 void changeSeatStatus(){ //Matt
