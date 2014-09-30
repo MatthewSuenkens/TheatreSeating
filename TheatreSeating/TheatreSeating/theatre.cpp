@@ -9,16 +9,16 @@ int totalAvailable = 0;
 int row = 0;
 int seat = 0;
 int seatsSold = 0;
-int userChoice = 0; // ****UPDATE**** forgot to make the userChoice variable during our class-time tuesday.
-int seatsPerRow = 0; // (3rd commit addition)
+int userChoice = 0; 
+int seatsPerRow = 0; 
 
 
-char seatingChart[14][29];
-int sales[14];
+char seatingChart[15][30];
+int sales[15];
 
 void displayMenu();   // Kevin
 void promptRowSeat();	// Kevin
-void displayAvailable(); // Kevin (3rd commit addition)
+void displayAvailable(); // Kevin
 void displaySales();	// Rodger
 void promptRowPrices();	// Rodger
 void getRowPrice();		// Rodger
@@ -29,11 +29,11 @@ void changeSeatStatus();	// Matt -- created 9/27/14
 int main()
 {
 	// Fill the array 
-	fillArray(); // fillAray needs to be defined below
+	fillArray();
 
 
 	// Prompt for row prices
-	promptRowPrices();  // promptRowPrices needs to be defined below
+	promptRowPrices();  
 	
 	// Display Menu outside of while and set userChoice
 	displayMenu();
@@ -44,18 +44,17 @@ int main()
 		switch(userChoice){
 			
 			case 1: 
-				promptRowSeat();
-				changeSeatStatus();
-				displayChart();
-				displayMenu();
+				promptRowSeat();		// Ask the user for Row and Seat #
+				displayChart();			// Display the seating chart
+				displayMenu();			// Display the menu
 				break;
 			case 2:
 				displayChart();
-				displayAvailable();
+				displayAvailable();		// Display available seating left in each row
 				displayMenu();
 				break;
 			case 3:
-				displaySales();
+				displaySales();			// Display the total sales
 				displayChart();
 				displayMenu();
 				break;
@@ -85,8 +84,8 @@ void displayAvailable(){
 	
 
 	// Displays seats available in each row
-	for(int i = 0; i > 15; i++){
-		for(int j = 0; j > 30; j++){
+	for(int i = 0; i < 15; i++){
+		for(int j = 0; j < 30; j++){
 			if (seatingChart[i][j] == '#')
 				seatsPerRow++;
 		}
@@ -96,7 +95,7 @@ void displayAvailable(){
 	}
 
 	// Displays total number of seats left in auditorium
-	cout << "Total # of seats left: " << totalAvailable << endl;
+	cout << "Total # of seats left: " << totalAvailable << endl << endl;
 
 	// Reset variables so they will be correct if the client chooses option 2 (Ticket Availabilty) again
 	totalAvailable = 0;
@@ -104,13 +103,11 @@ void displayAvailable(){
 	
 }
 void displaySales(){
-// define displaySales here
-	// assume totalSales is already correct (calculated in promptRowSeat() )
+// Display the total sales so far. totalSales is incremented in promptRowSeat
 	cout << "The total sales are: " << totalSales << endl;
 }	
 
 void displayChart(){ //Matt
-// define displayChart here
 	cout << "\t";
 	for (int i = 0; i < 3; i++){
 		for (int j = 1; j < 11; j++){
@@ -128,13 +125,12 @@ void displayChart(){ //Matt
 		for (int j = 0; j < 30; j++){
 			cout << seatingChart[i][j];
 		}
-		cout << endl;
+		cout << endl << endl;
 	}
 }
 
 void fillArray(){ //Matt
-// define fillArray here
-	// *4th commit* changed the seatingChart array from a int array to a char array
+// Fill the array at the start of the program
 	for (int i = 0; i < 15; ++i){
 		for (int j = 0; j < 30; ++j){
 			seatingChart[i][j] = '#';
@@ -143,15 +139,14 @@ void fillArray(){ //Matt
 }
 
 void promptRowPrices(){
-// define promptRowPrices here
-// Prompts user to enter the price of purchasing a seat row by row and initializes each price with the correspoding row in "sales" array
-// reminder, row 1 == sales[0], row 15 == sales[14];
+// Ask the user to enter the prices for each row
 	int rowPrices;
 
-	for (int i=0; i < 15; i++){
-		cout << "Enter The Amount For Row " << (i +1) << endl;
+	for (int i = 0; i < 15; i++){
+		cout << "Enter the price of Row #" << (i + 1) << endl;
 		cin >> rowPrices;
 		sales[i] = rowPrices;
+	}
 }
 
 void promptRowSeat(){
@@ -167,10 +162,10 @@ void promptRowSeat(){
 	// If the seat is available, change the seat's status in the seating chart, add to totalSales, and increment seatsSold
 	if(seatingChart[row-1][seat-1] == '#'){
 		changeSeatStatus();
-		cout << "Sold! That seat cost : $";
+		cout << "Sold! That seat cost: $";
 		getRowPrice();
-		cout << "." << endl;
-		totalSales += sales[row];
+		cout << endl;
+		totalSales += sales[row-1];
 		seatsSold++;
 	}
 	else if(seatingChart[row-1][seat-1] == '*'){
@@ -183,19 +178,18 @@ void promptRowSeat(){
 }
 
 void getRowPrice(){ 
-// define getRowPrice here
-	// assume the 'row' variable is already set to the index of the row you are searching for
-	// the function should ultimately output the price of the row ( ex. cout << sales[row-1] << endl )
-	// reminder, row 1 == sales[0], row 15 == sales[14];
-		int price = sales[row - 1];
+// Output the price of the corresponding row in the sales[] array
 
-	cout << "The price for that row is: " << price << endl;
+	int price;
+		if(row==0)
+			price = sales[row];
+		else
+			price = sales[row - 1];
+	cout << price << endl;
 
 }
 
 void changeSeatStatus(){ //Matt
-// define changeSeatStatus here
-	// assume the 'row' and 'seat' variables are already set to the indexes of the row and seat you are trying to change
-	// reminder, row 1 seat 30 == seatingChart[0][29]
+// Change the char at the row and seat index of the seatingChart array
 	seatingChart[row - 1][seat - 1] = '*';
 }
